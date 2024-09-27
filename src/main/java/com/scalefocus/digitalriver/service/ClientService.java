@@ -30,6 +30,11 @@ public class ClientService {
 		return optionalClient.get();
 	}
 
+	public Optional<Client> loadOptionalClient(UUID clientId) {
+		return repository.findById(clientId);
+
+	}
+
 	@Transactional
 	public Client save(String name) {
 		log.info("save name:{} started", name);

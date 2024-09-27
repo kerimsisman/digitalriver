@@ -10,6 +10,7 @@ import com.scalefocus.digitalriver.model.Client;
 import com.scalefocus.digitalriver.model.WebhookData;
 import com.scalefocus.digitalriver.repository.WebhookDataRepository;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +28,7 @@ public class ClientCursorDataService {
 		this.clientCursorService = clientCursorService;
 		this.clientService = clientService;
 	}
+	
 
 	@Transactional
 	public List<WebhookData> readClientData(UUID clientId, String source) throws Exception {
