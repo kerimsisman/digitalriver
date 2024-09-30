@@ -2,6 +2,7 @@ package com.scalefocus.digitalriver.repository;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +15,8 @@ import com.scalefocus.digitalriver.model.WebhookData;
 public interface WebhookDataRepository extends CrudRepository<WebhookData, UUID> {
 
 	@Query("select w from WebhookData w left outer join ClientCursor c on w.id=c.webhookData.id and c.client.id=?1 where c.id is null and (w.source=?2 or ?2 is null) and w.createdAt > ?3 ")
-	List<WebhookData> unreadedData(UUID clientId,String source, Instant date);
+	List<WebhookData> unreadedData(UUID clientId, String source, Instant date);
+
+	@Query("select w from WebhookData w  where w.id in (?1)")
+	List<WebhookData> findByIdList(Set<UUID> list);
 }

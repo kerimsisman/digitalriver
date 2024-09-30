@@ -30,13 +30,16 @@ public class ClientCursorDataController {
 
 	@GetMapping("/{" + KEY_CLIENT_ID + "}")
 	public @ResponseBody List<WebhookData> read(@RequestParam(name = "source", required = false) String source,
+			@RequestParam(name = "data-id", required = false) UUID dataId,
 			@PathVariable(required = false, name = KEY_CLIENT_ID) UUID clientId) throws Exception {
 		log.info("read started {} clientId:{} source:{}", Instant.now(), clientId, source);
 
-		List<WebhookData> result = service.readClientData(clientId, source);
+		List<WebhookData> result = service.readClientData(clientId, source,dataId);
 
 		log.info("read completed {} clientId:{} source:{} size:{}", Instant.now(), clientId, source,
 				result == null ? 0 : result.size());
 		return result;
 	}
+	
+	
 }
